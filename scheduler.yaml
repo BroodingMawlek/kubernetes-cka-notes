@@ -1,0 +1,20 @@
+# default --scheduler-name= default-scheduler
+# To use your own scheduler you must give it a unique name and reference the name in the pod definition file
+# e.g. kubeadm tool deploys the scheduler as a pod
+
+# /etc/kubernetes/manifests/kube-scheduler.yaml
+# This is a stripped down version showing the important bits
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-scheduler
+    - --address=127.0.0.1
+    - --kubeconfig=/etc/kubernetes/scheduler.conf
+    - --leader-elect=true
+    image: k8s.gcr.io/kube-scheduler:v1.20.0
+    name: kube-scheduler
